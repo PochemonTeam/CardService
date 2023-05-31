@@ -39,6 +39,6 @@ public class Card {
 	
 	Float attack;
 
-	Integer user_id;
+	Integer userId;
 	
 }
