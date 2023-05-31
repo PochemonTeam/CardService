@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pochemon.card.entity.Card;
 import pochemon.card.repository.CardRepository;
+import pochemon.dto.StoreOrderDTO;
+import pochemon.service.StoreWebService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -14,9 +17,8 @@ public class CardService {
 	@Autowired
 	CardRepository cardRepository;
 
-	// TODO : Changer pour remplacer par le service de la lib
 	@Autowired
-	StoreOrderRepository storeOrderRepository;
+	StoreWebService storeWebService;
 
 	public Boolean addCard(Card card) {
 		if (card != null) {
@@ -44,8 +46,13 @@ public class CardService {
 	}
 	
 	public List<Card> getAllCardsForSale() {
-		List<StoreOrder> listStoreOrder = storeOrderRepository.findAll();
-		return listStoreOrder.stream().map(StoreOrder::getCard).collect(Collectors.toList());
+		List<StoreOrderDTO> listStoreOrder = storeWebService.getAllOrders();
+		return listStoreOrder.stream()
+				.map(StoreOrderDTO::getCardId)
+				.map(cardRepository::findById)
+				.filter(Optional::isPresent)
+				.map(Optional::get)
+				.collect(Collectors.toList());
 	}
 
     public List<Card> getAllCardsByUser(Integer id) {
