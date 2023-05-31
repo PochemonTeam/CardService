@@ -9,7 +9,7 @@ import pochemon.dto.CardDTO;
 import java.util.List;
 
 @RestController
-@RequestMapping("/card")
+@RequestMapping("/cards")
 @CrossOrigin
 public class CardController {
 	
@@ -44,7 +44,7 @@ public class CardController {
 		return cardMapper.toCardDTO(cardService.getAllCardsForSale());
 	}
 	
-	@GetMapping("/all")
+	@GetMapping()
 	public List<CardDTO> getAllCards() {
 		return cardMapper.toCardDTO(cardService.getAllCards());
 	}
