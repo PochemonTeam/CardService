@@ -14,11 +14,14 @@ import java.util.stream.Collectors;
 @Service
 public class CardService {
 	
-	@Autowired
-	CardRepository cardRepository;
+	final CardRepository cardRepository;
 
-	@Autowired
 	StoreWebService storeWebService;
+
+	public CardService(CardRepository cardRepository) {
+		this.cardRepository = cardRepository;
+		this.storeWebService = new StoreWebService();
+	}
 
 	public Boolean addCard(Card card) {
 		if (card != null) {
