@@ -9,7 +9,7 @@ import pochemon.dto.CardDTO;
 import java.util.List;
 
 @RestController
-@RequestMapping("/aoi/cards")
+@RequestMapping("/api/cards")
 @CrossOrigin
 public class CardController {
 	
