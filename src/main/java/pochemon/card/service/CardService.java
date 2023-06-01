@@ -32,9 +32,9 @@ public class CardService {
 	}
 	
 	
-	public Boolean deleteCard(Card card) {
-		if (card != null) {
-			cardRepository.delete(card);
+	public Boolean deleteCard(Integer id) {
+		if (id != null) {
+			cardRepository.deleteById(id);
 			return true;
 		}
 		return false;

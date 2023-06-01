@@ -2,9 +2,11 @@ package pochemon.card.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pochemon.card.entity.Card;
 import pochemon.card.mapper.CardMapper;
 import pochemon.card.service.CardService;
 import pochemon.dto.CardDTO;
+
 
 import java.util.List;
 
@@ -23,15 +25,29 @@ public class CardController {
 	public CardDTO getCard(@PathVariable Integer id) {
 		return cardMapper.toCardDTO(cardService.getCard(id));
 	}
-	
+
 	@PutMapping
 	public Boolean editCard(@RequestBody CardDTO cardDto) {
-		return cardService.addCard(cardMapper.toCard(cardDto));
+
+		Card card = cardService.getCard(cardDto.getId());
+
+		card.setName(cardDto.getName());
+		card.setDescription(cardDto.getDescription());
+		card.setFamily(cardDto.getFamily());
+		card.setAffinity(cardDto.getAffinity());
+		card.setImgUrl(cardDto.getImgUrl());
+		card.setSmallImgUrl(cardDto.getSmallImgUrl());
+		card.setEnergy(cardDto.getEnergy());
+		card.setHp(cardDto.getHp());
+		card.setDefence(cardDto.getDefence());
+		card.setAttack(cardDto.getAttack());
+
+		return cardService.addCard(card);
 	}
-	
-	@DeleteMapping
-	public Boolean removeCard(@RequestBody CardDTO cardDto) {
-		return cardService.deleteCard(cardMapper.toCard(cardDto));
+
+	@DeleteMapping("/{id}")
+	public Boolean removeCard(@PathVariable Integer id) {
+		return cardService.deleteCard(id);
 	}
 	
 	@PostMapping
