@@ -1,0 +1,3 @@
+[submodule "PochemonLib"]
+	path = PochemonLib
+	url = https://github.com/PochemonTeam/PochemonLib.git
